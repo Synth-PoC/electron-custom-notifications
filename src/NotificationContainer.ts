@@ -79,19 +79,22 @@ class NotificationContainer {
     options.webPreferences = {
       nodeIntegration: true,
       contextIsolation: false,
-    }; // Since we're not displaying untrusted content 
-       // (all links are opened in a real browser window), we can enable this.
+    }; // Since we're not displaying untrusted content
+    // (all links are opened in a real browser window), we can enable this.
 
     this.window = new BrowserWindow(options);
     this.window.setVisibleOnAllWorkspaces(true);
-    this.window.loadURL(path.join("file://", __dirname, "/container.html"));
+    // this.window.loadURL(path.join("file://", __dirname, "/container.html"));
+    this.window.loadURL(
+      path.join(process.resourcesPath ?? "", "container.html")
+    );
     this.window.setIgnoreMouseEvents(true, { forward: true });
     this.window.showInactive();
     // this.window.webContents.openDevTools({ mode: 'detach' });
 
     ipcMain.on("notification-clicked", (e: any, id: string) => {
       const notification = this.notifications.find(
-        notification => notification.id == id
+        (notification) => notification.id == id
       );
 
       if (notification) {

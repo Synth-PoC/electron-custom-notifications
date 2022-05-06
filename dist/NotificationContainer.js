@@ -33,6 +33,7 @@ var NotificationContainer = /** @class */ (function () {
      */
     function NotificationContainer() {
         var _this = this;
+        var _a;
         /**
          * Determines if the container window has been loaded.
          *
@@ -86,11 +87,12 @@ var NotificationContainer = /** @class */ (function () {
         options.webPreferences = {
             nodeIntegration: true,
             contextIsolation: false,
-        }; // Since we're not displaying untrusted content 
+        }; // Since we're not displaying untrusted content
         // (all links are opened in a real browser window), we can enable this.
         this.window = new electron_1.BrowserWindow(options);
         this.window.setVisibleOnAllWorkspaces(true);
-        this.window.loadURL(path.join("file://", __dirname, "/container.html"));
+        // this.window.loadURL(path.join("file://", __dirname, "/container.html"));
+        this.window.loadURL(path.join((_a = process.resourcesPath) !== null && _a !== void 0 ? _a : "", "container.html"));
         this.window.setIgnoreMouseEvents(true, { forward: true });
         this.window.showInactive();
         // this.window.webContents.openDevTools({ mode: 'detach' });
