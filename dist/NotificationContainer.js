@@ -102,6 +102,13 @@ var NotificationContainer = /** @class */ (function () {
                 notification.emit("click");
             }
         });
+        electron_1.ipcMain.on("button-clicked", function (e, _a) {
+            var id = _a.id, event = _a.event;
+            var notification = _this.notifications.find(function (notification) { return notification.id == id; });
+            if (notification && event) {
+                notification.emit(event);
+            }
+        });
         electron_1.ipcMain.on("make-clickable", function (e) {
             _this.window && _this.window.setIgnoreMouseEvents(false);
         });

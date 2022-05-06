@@ -102,6 +102,19 @@ class NotificationContainer {
       }
     });
 
+    ipcMain.on(
+      "button-clicked",
+      (e: any, { id, event }: { id: string; event: string }) => {
+        const notification = this.notifications.find(
+          (notification) => notification.id == id
+        );
+
+        if (notification && event) {
+          notification.emit(event);
+        }
+      }
+    );
+
     ipcMain.on("make-clickable", (e: any) => {
       this.window && this.window.setIgnoreMouseEvents(false);
     });
