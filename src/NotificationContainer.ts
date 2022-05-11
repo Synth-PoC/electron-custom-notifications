@@ -86,10 +86,10 @@ class NotificationContainer {
     this.window = new BrowserWindow(options);
     this.window.setVisibleOnAllWorkspaces(true);
     // this.window.loadURL(path.join("file://", __dirname, "/container.html"));
-    // this.window.loadURL(`data:text/html;charset=utf-8,${containerHtml}`);
-    this.window.loadURL(
-      path.join(process.resourcesPath ?? "", "container.html")
-    );
+    // this.window.loadURL(
+    //   path.join(process.resourcesPath ?? "", "container.html")
+    // );
+    this.window.loadURL(`data:text/html;charset=utf-8,${containerHtml}`);
     this.window.setIgnoreMouseEvents(true, { forward: true });
     this.window.showInactive();
     // this.window.webContents.openDevTools({ mode: 'detach' });
