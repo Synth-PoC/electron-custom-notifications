@@ -52,7 +52,6 @@ const containerHtml =
       });
 
       ipc.on("notification-remove", (e, id) => {
-          const id = 
         const notification = document.querySelector(
           '[data-notification-id="'+id + '"]'
         );
