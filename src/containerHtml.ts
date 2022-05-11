@@ -30,7 +30,21 @@ const containerHtml =
         console.log(container)
 
         if (parsedElement) {
-          parsedElement.addEventListener("mouseenter", () => {
+          const scriptTag = parsedElement.querySelector("script");
+          if (scriptTag) {
+            const code = scriptTag.textContent;
+            parsedElement.removeChild(scriptTag);
+
+            const script = document.createElement("script");
+            script.type = "text/javascript";
+            script.appendChild(document.createTextNode(code));
+
+            container.insertBefore(parsedElement, container.firstChild);
+            parsedElement.insertBefore(script, parsedElement.firstChild);
+          } else {
+            container.insertBefore(parsedElement, container.firstChild);
+          }
+           parsedElement.addEventListener("mouseenter", () => {
             console.log('mouse enter')
             ipc.send("make-clickable");
           });
@@ -52,20 +66,6 @@ const containerHtml =
               });
             });
           });
-          const scriptTag = parsedElement.querySelector("script");
-          if (scriptTag) {
-            const code = scriptTag.textContent;
-            parsedElement.removeChild(scriptTag);
-
-            const script = document.createElement("script");
-            script.type = "text/javascript";
-            script.appendChild(document.createTextNode(code));
-
-            container.insertBefore(parsedElement, container.firstChild);
-            parsedElement.insertBefore(script, parsedElement.firstChild);
-          } else {
-            container.insertBefore(parsedElement, container.firstChild);
-          }
         }
       });
 
