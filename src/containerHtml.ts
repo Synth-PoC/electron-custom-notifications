@@ -11,7 +11,7 @@ const containerHtml =
         const domParser = new DOMParser();
         const parsedElement = domParser.parseFromString(html, "text/html").body
           .firstChild;
-        const container = document.getElementById("notification-container");
+        const container = document.querySelector("body");
 
         if (parsedElement) {
           parsedElement.addEventListener("mouseenter", () => {

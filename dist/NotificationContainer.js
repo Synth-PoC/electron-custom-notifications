@@ -1,10 +1,26 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var electron_1 = require("electron");
-var containerHtml_1 = __importDefault(require("./containerHtml"));
+var path = __importStar(require("path"));
 /**
  * Container where Notifications are pushed into.
  *
@@ -17,6 +33,7 @@ var NotificationContainer = /** @class */ (function () {
      */
     function NotificationContainer() {
         var _this = this;
+        var _a;
         /**
          * Determines if the container window has been loaded.
          *
@@ -56,15 +73,15 @@ var NotificationContainer = /** @class */ (function () {
         var displayHeight = display.workArea.y + display.workAreaSize.height;
         options.height = displayHeight;
         options.width = NotificationContainer.CONTAINER_WIDTH;
-        // options.alwaysOnTop = true;
-        // options.skipTaskbar = true;
+        options.alwaysOnTop = true;
+        options.skipTaskbar = true;
         options.resizable = false;
         options.minimizable = false;
         options.fullscreenable = false;
-        options.focusable = true;
-        options.show = true;
-        options.frame = true;
-        options.transparent = false;
+        options.focusable = false;
+        options.show = false;
+        options.frame = false;
+        options.transparent = true;
         options.x = displayWidth - NotificationContainer.CONTAINER_WIDTH;
         options.y = 0;
         options.webPreferences = {
@@ -75,11 +92,9 @@ var NotificationContainer = /** @class */ (function () {
         this.window = new electron_1.BrowserWindow(options);
         this.window.setVisibleOnAllWorkspaces(true);
         // this.window.loadURL(path.join("file://", __dirname, "/container.html"));
-        // this.window.loadURL(
-        //   path.join(process.resourcesPath ?? "", "container.html")
-        // );
-        this.window.loadURL("data:text/html;charset=utf-8," + containerHtml_1.default);
-        // this.window.setIgnoreMouseEvents(true, { forward: true });
+        // this.window.loadURL(`data:text/html;charset=utf-8,${containerHtml}`);
+        this.window.loadURL(path.join((_a = process.resourcesPath) !== null && _a !== void 0 ? _a : "", "container.html"));
+        this.window.setIgnoreMouseEvents(true, { forward: true });
         this.window.showInactive();
         // this.window.webContents.openDevTools({ mode: 'detach' });
         electron_1.ipcMain.on("notification-clicked", function (e, id) {
