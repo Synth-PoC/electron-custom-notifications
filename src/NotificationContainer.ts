@@ -5,6 +5,7 @@ import {
 } from "electron";
 import * as path from "path";
 import Notification from "./Notification";
+import containerHtml from "./containerHtml";
 
 /**
  * Container where Notifications are pushed into.
@@ -65,15 +66,15 @@ class NotificationContainer {
 
     options.height = displayHeight;
     options.width = NotificationContainer.CONTAINER_WIDTH;
-    options.alwaysOnTop = true;
-    options.skipTaskbar = true;
+    // options.alwaysOnTop = true;
+    // options.skipTaskbar = true;
     options.resizable = false;
     options.minimizable = false;
     options.fullscreenable = false;
-    options.focusable = false;
-    options.show = false;
-    options.frame = false;
-    options.transparent = true;
+    options.focusable = true;
+    options.show = true;
+    options.frame = true;
+    options.transparent = false;
     options.x = displayWidth - NotificationContainer.CONTAINER_WIDTH;
     options.y = 0;
     options.webPreferences = {
@@ -85,10 +86,11 @@ class NotificationContainer {
     this.window = new BrowserWindow(options);
     this.window.setVisibleOnAllWorkspaces(true);
     // this.window.loadURL(path.join("file://", __dirname, "/container.html"));
-    this.window.loadURL(
-      path.join(process.resourcesPath ?? "", "container.html")
-    );
-    this.window.setIgnoreMouseEvents(true, { forward: true });
+    // this.window.loadURL(
+    //   path.join(process.resourcesPath ?? "", "container.html")
+    // );
+    this.window.loadURL(`data:text/html;charset=utf-8,${containerHtml}`);
+    // this.window.setIgnoreMouseEvents(true, { forward: true });
     this.window.showInactive();
     // this.window.webContents.openDevTools({ mode: 'detach' });
 
