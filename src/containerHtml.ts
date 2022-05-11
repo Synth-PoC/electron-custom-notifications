@@ -8,7 +8,7 @@ const containerHtml =
       const ipc = require("electron").ipcRenderer;
 
       const getContainer = ()=>{
-        if(document.querySelector('#notification-container')){
+        if(!document.querySelector('#notification-container')){
           return document.querySelector('#notification-container');
         }
         const container = document.createElement('div')
