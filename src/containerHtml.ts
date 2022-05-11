@@ -7,11 +7,21 @@ const containerHtml =
     <script>
       const ipc = require("electron").ipcRenderer;
 
+      const getContainer = ()=>{
+        if(document.querySelector('#notification-container')){
+          return document.querySelector('#notification-container');
+        }
+        const container = document.createElement('div')
+        container.setAttribute('id','notification-container')
+        document.body.appendChild(container)
+        return container
+      }
+
       ipc.on("notification-add", (e, html) => {
         const domParser = new DOMParser();
         const parsedElement = domParser.parseFromString(html, "text/html").body
           .firstChild;
-        const container = document.querySelector("body");
+        const container = getContainer();
 
         if (parsedElement) {
           parsedElement.addEventListener("mouseenter", () => {
@@ -4203,7 +4213,6 @@ const containerHtml =
   </head>
 
   <body>
-    <div id="notification-container"></div>
   </body>
 </html>
 `;
