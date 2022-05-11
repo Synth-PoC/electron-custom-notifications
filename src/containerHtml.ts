@@ -7,23 +7,24 @@ const containerHtml =
     <script>
       const ipc = require("electron").ipcRenderer;
 
-      const getContainer = ()=>{
-        if(document.querySelector("#notification-container")){
-          console.log("using old container",document.querySelector("#notification-container"))
-          return document.querySelector("#notification-container");
-        }
-        console.log("creating a container")
-        const container = document.createElement("div")
-        container.setAttribute("id","notification-container")
-        document.body.appendChild(container)
-        console.log("new container", container)
-        return container
-      }
-
       ipc.on("notification-add", (e, html) => {
         const domParser = new DOMParser();
         const parsedElement = domParser.parseFromString(html, "text/html").body
           .firstChild;
+
+        function getContainer() {
+          if(document.querySelector("#notification-container")){
+            console.log("using old container",document.querySelector("#notification-container"))
+            return document.querySelector("#notification-container");
+          }
+          console.log("creating a container")
+          const container = document.createElement("div")
+          container.setAttribute("id","notification-container")
+          document.body.appendChild(container)
+          console.log("new container", container)
+          return container
+        }
+
         const container = getContainer();
 
         console.log(container)
