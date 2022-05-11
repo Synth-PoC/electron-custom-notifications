@@ -118,10 +118,12 @@ class NotificationContainer {
     );
 
     ipcMain.on("make-clickable", (e: any) => {
+      console.log("making clickable");
       this.window && this.window.setIgnoreMouseEvents(false);
     });
 
     ipcMain.on("make-unclickable", (e: any) => {
+      console.log("making unclickable");
       this.window && this.window.setIgnoreMouseEvents(true, { forward: true });
     });
 

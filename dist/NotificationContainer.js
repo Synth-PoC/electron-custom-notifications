@@ -96,9 +96,11 @@ var NotificationContainer = /** @class */ (function () {
             }
         });
         electron_1.ipcMain.on("make-clickable", function (e) {
+            console.log("making clickable");
             _this.window && _this.window.setIgnoreMouseEvents(false);
         });
         electron_1.ipcMain.on("make-unclickable", function (e) {
+            console.log("making unclickable");
             _this.window && _this.window.setIgnoreMouseEvents(true, { forward: true });
         });
         this.window.webContents.on("did-finish-load", function () {

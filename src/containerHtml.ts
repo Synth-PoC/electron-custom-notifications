@@ -9,11 +9,14 @@ const containerHtml =
 
       const getContainer = ()=>{
         if(document.querySelector('#notification-container')){
+          console.log('using old container',document.querySelector('#notification-container'))
           return document.querySelector('#notification-container');
         }
+        console.log('creating a container')
         const container = document.createElement('div')
         container.setAttribute('id','notification-container')
         document.body.appendChild(container)
+        console.log('new container', container)
         return container
       }
 
@@ -23,11 +26,15 @@ const containerHtml =
           .firstChild;
         const container = getContainer();
 
+        console.log(container)
+
         if (parsedElement) {
           parsedElement.addEventListener("mouseenter", () => {
+            console.log('mouse enter')
             ipc.send("make-clickable");
           });
           parsedElement.addEventListener("mouseleave", () => {
+            console.log('mouse leave')
             ipc.send("make-unclickable");
           });
           parsedElement.addEventListener("click", () => {
