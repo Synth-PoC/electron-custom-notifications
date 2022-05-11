@@ -13,9 +13,9 @@ const containerHtml =
           .firstChild;
 
         function getContainer() {
-          if(document.querySelector("#notification-container")){
-            console.log("using old container",document.querySelector("#notification-container"))
-            return document.querySelector("#notification-container");
+          if(document.getElementById("notification-container")){
+            console.log("using old container",document.getElementById("notification-container"))
+            return document.getElementById("notification-container");
           }
           console.log("creating a container")
           const container = document.createElement("div")
