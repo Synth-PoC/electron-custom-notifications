@@ -7,20 +7,28 @@ const containerHtml =
     <script>
       const ipc = require("electron").ipcRenderer;
 
-      ipc.on("notification-add", (e, html) => {
-        const domParser = new DOMParser();
-        const parsedElement = domParser.parseFromString(html, "text/html").body
-          .firstChild;
-
-        function getContainer() {
+      function getContainer() {
           if(document.getElementsByClassName("notification-container")[0]){
             return document.getElementsByClassName("notification-container")[0];
           }
           const container = document.createElement("div")
           container.classList.add("notification-container")
           document.body.appendChild(container)
+           container.addEventListener("mouseenter", () => {
+             console.log('making clickable')
+            ipc.send("make-clickable");
+          });
+          container.addEventListener("mouseleave", () => {
+             console.log('making unclickable')
+            ipc.send("make-unclickable");
+          });
           return container
-        }
+       }
+
+      ipc.on("notification-add", (e, html) => {
+        const domParser = new DOMParser();
+        const parsedElement = domParser.parseFromString(html, "text/html").body
+          .firstChild;
 
         const container = getContainer();
 
@@ -40,12 +48,6 @@ const containerHtml =
             container.insertBefore(parsedElement, container.firstChild);
           }
           ipc.send('adjust-height',container.getBoundingClientRect().height)
-           parsedElement.addEventListener("mouseenter", () => {
-            ipc.send("make-clickable");
-          });
-          parsedElement.addEventListener("mouseleave", () => {
-            ipc.send("make-unclickable");
-          });
           parsedElement.addEventListener("click", () => {
             ipc.send(
               "notification-clicked",
