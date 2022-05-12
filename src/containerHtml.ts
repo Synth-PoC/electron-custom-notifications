@@ -17,7 +17,7 @@ const containerHtml =
             return document.getElementsByClassName("notification-container")[0];
           }
           const container = document.createElement("div")
-          container.setAttribute("class","notification-container")
+          container.classList.add("notification-container")
           document.body.appendChild(container)
           return container
         }
