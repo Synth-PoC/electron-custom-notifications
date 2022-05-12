@@ -41,11 +41,9 @@ const containerHtml =
           }
           ipc.send('adjust-height',container.getBoundingClientRect().height)
            parsedElement.addEventListener("mouseenter", () => {
-            console.log('mouse enter')
             ipc.send("make-clickable");
           });
           parsedElement.addEventListener("mouseleave", () => {
-            console.log('mouse leave')
             ipc.send("make-unclickable");
           });
           parsedElement.addEventListener("click", () => {
