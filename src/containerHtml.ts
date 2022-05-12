@@ -13,11 +13,11 @@ const containerHtml =
           .firstChild;
 
         function getContainer() {
-          if(document.getElementById("notification-container")){
-            return document.getElementById("notification-container");
+          if(document.getElementsByClassName("notification-container")[0]){
+            return document.getElementsByClassName("notification-container")[0];
           }
           const container = document.createElement("div")
-          container.setAttribute("id","notification-container")
+          container.setAttribute("class","notification-container")
           document.body.appendChild(container)
           return container
         }
@@ -232,17 +232,15 @@ const containerHtml =
         padding: 0;
         height: 100%;
       }
-      #notification-container,
+      .notification-container,
       body,
       html {
         background: 0 0;
         width: 100%;
         overflow: hidden;
       }
-      #notification-container {
-        position: absolute;
-        bottom: 0;
-        left: 0;
+      .notification-container{
+        padding:12px;
       }
     </style>
   </head>
