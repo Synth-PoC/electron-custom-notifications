@@ -64,7 +64,7 @@ class NotificationContainer {
     const displayWidth = display.workArea.x + display.workAreaSize.width;
     const displayHeight = display.workArea.y + display.workAreaSize.height;
 
-    options.height = 0;
+    options.height = 24;
     options.width = NotificationContainer.CONTAINER_WIDTH;
     options.alwaysOnTop = true;
     options.skipTaskbar = true;
