@@ -39,7 +39,7 @@ const containerHtml =
           } else {
             container.insertBefore(parsedElement, container.firstChild);
           }
-          ipc.send('adjust-height',container.getBoundingClientRect().height+16)
+          ipc.send('adjust-height',container.getBoundingClientRect().height)
            parsedElement.addEventListener("mouseenter", () => {
             console.log('mouse enter')
             ipc.send("make-clickable");

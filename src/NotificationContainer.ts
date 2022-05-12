@@ -74,7 +74,7 @@ class NotificationContainer {
     options.focusable = false;
     options.show = false;
     options.frame = false;
-    options.transparent = false;
+    options.transparent = true;
     options.x = displayWidth - NotificationContainer.CONTAINER_WIDTH;
     options.y = 0;
     options.webPreferences = {
