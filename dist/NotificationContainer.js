@@ -54,7 +54,7 @@ var NotificationContainer = /** @class */ (function () {
         var display = require("electron").screen.getPrimaryDisplay();
         var displayWidth = display.workArea.x + display.workAreaSize.width;
         var displayHeight = display.workArea.y + display.workAreaSize.height;
-        options.height = displayHeight;
+        options.height = 64;
         options.width = NotificationContainer.CONTAINER_WIDTH;
         options.alwaysOnTop = true;
         options.skipTaskbar = true;
@@ -95,12 +95,13 @@ var NotificationContainer = /** @class */ (function () {
                 notification.emit(event);
             }
         });
+        electron_1.ipcMain.on("adjust-height", function (_e, height) {
+            _this.window && _this.window.setSize(_this.window.getSize()[0], height);
+        });
         electron_1.ipcMain.on("make-clickable", function (e) {
-            console.log("making clickable");
             _this.window && _this.window.setIgnoreMouseEvents(false);
         });
         electron_1.ipcMain.on("make-unclickable", function (e) {
-            console.log("making unclickable");
             _this.window && _this.window.setIgnoreMouseEvents(true, { forward: true });
         });
         this.window.webContents.on("did-finish-load", function () {

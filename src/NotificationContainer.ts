@@ -64,7 +64,7 @@ class NotificationContainer {
     const displayWidth = display.workArea.x + display.workAreaSize.width;
     const displayHeight = display.workArea.y + display.workAreaSize.height;
 
-    options.height = displayHeight;
+    options.height = 64;
     options.width = NotificationContainer.CONTAINER_WIDTH;
     options.alwaysOnTop = true;
     options.skipTaskbar = true;
@@ -117,13 +117,15 @@ class NotificationContainer {
       }
     );
 
+    ipcMain.on("adjust-height", (_e: any, height: number) => {
+      this.window && this.window.setSize(this.window.getSize()[0], height);
+    });
+
     ipcMain.on("make-clickable", (e: any) => {
-      console.log("making clickable");
       this.window && this.window.setIgnoreMouseEvents(false);
     });
 
     ipcMain.on("make-unclickable", (e: any) => {
-      console.log("making unclickable");
       this.window && this.window.setIgnoreMouseEvents(true, { forward: true });
     });
 

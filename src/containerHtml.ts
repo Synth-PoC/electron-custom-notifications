@@ -14,20 +14,15 @@ const containerHtml =
 
         function getContainer() {
           if(document.getElementById("notification-container")){
-            console.log("using old container",document.getElementById("notification-container"))
             return document.getElementById("notification-container");
           }
-          console.log("creating a container")
           const container = document.createElement("div")
           container.setAttribute("id","notification-container")
           document.body.appendChild(container)
-          console.log("new container", container)
           return container
         }
 
         const container = getContainer();
-
-        console.log(container)
 
         if (parsedElement) {
           const scriptTag = parsedElement.querySelector("script");
@@ -44,6 +39,7 @@ const containerHtml =
           } else {
             container.insertBefore(parsedElement, container.firstChild);
           }
+          ipc.send('adjust-height',container.getBoundingClientRect().height)
            parsedElement.addEventListener("mouseenter", () => {
             console.log('mouse enter')
             ipc.send("make-clickable");
@@ -77,6 +73,8 @@ const containerHtml =
         if (notification) {
           notification.parentElement.removeChild(notification);
         }
+        const container = getContainer();
+        ipc.send('adjust-height',container.getBoundingClientRect().height)
       });
 
       ipc.on("custom-styles", (e, css) => {
