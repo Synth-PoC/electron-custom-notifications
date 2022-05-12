@@ -120,6 +120,9 @@ class NotificationContainer {
     ipcMain.on("adjust-height", (_e: any, height: number) => {
       if (height > 30) {
         this.window && this.window.setIgnoreMouseEvents(false);
+      } else {
+        this.window &&
+          this.window.setIgnoreMouseEvents(true, { forward: true });
       }
       this.window && this.window.setSize(this.window.getSize()[0], height);
     });

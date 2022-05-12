@@ -99,6 +99,10 @@ var NotificationContainer = /** @class */ (function () {
             if (height > 30) {
                 _this.window && _this.window.setIgnoreMouseEvents(false);
             }
+            else {
+                _this.window &&
+                    _this.window.setIgnoreMouseEvents(true, { forward: true });
+            }
             _this.window && _this.window.setSize(_this.window.getSize()[0], height);
         });
         // ipcMain.on("make-clickable", (e: any) => {
