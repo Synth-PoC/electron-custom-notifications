@@ -14,14 +14,6 @@ const containerHtml =
           const container = document.createElement("div")
           container.classList.add("notification-container")
           document.body.appendChild(container)
-           container.addEventListener("mouseenter", () => {
-             console.log('making clickable')
-            ipc.send("make-clickable");
-          });
-          container.addEventListener("mouseleave", () => {
-             console.log('making unclickable')
-            ipc.send("make-unclickable");
-          });
           return container
        }
 

@@ -54,7 +54,7 @@ var NotificationContainer = /** @class */ (function () {
         var display = require("electron").screen.getPrimaryDisplay();
         var displayWidth = display.workArea.x + display.workAreaSize.width;
         var displayHeight = display.workArea.y + display.workAreaSize.height;
-        options.height = 64;
+        options.height = 0;
         options.width = NotificationContainer.CONTAINER_WIDTH;
         options.alwaysOnTop = true;
         options.skipTaskbar = true;
@@ -96,14 +96,17 @@ var NotificationContainer = /** @class */ (function () {
             }
         });
         electron_1.ipcMain.on("adjust-height", function (_e, height) {
+            if (height > 30) {
+                _this.window && _this.window.setIgnoreMouseEvents(false);
+            }
             _this.window && _this.window.setSize(_this.window.getSize()[0], height);
         });
-        electron_1.ipcMain.on("make-clickable", function (e) {
-            _this.window && _this.window.setIgnoreMouseEvents(false);
-        });
-        electron_1.ipcMain.on("make-unclickable", function (e) {
-            _this.window && _this.window.setIgnoreMouseEvents(true, { forward: true });
-        });
+        // ipcMain.on("make-clickable", (e: any) => {
+        //   this.window && this.window.setIgnoreMouseEvents(false);
+        // });
+        // ipcMain.on("make-unclickable", (e: any) => {
+        //   this.window && this.window.setIgnoreMouseEvents(true, { forward: true });
+        // });
         this.window.webContents.on("did-finish-load", function () {
             _this.ready = true;
             if (NotificationContainer.CUSTOM_STYLES) {
