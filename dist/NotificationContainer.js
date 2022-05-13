@@ -65,6 +65,7 @@ var NotificationContainer = /** @class */ (function () {
         options.show = false;
         options.frame = false;
         options.transparent = true;
+        options.hasShadow = true;
         options.x = displayWidth - NotificationContainer.CONTAINER_WIDTH;
         options.y = 0;
         options.webPreferences = {
