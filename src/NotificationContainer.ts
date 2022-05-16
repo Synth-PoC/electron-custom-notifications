@@ -77,7 +77,8 @@ class NotificationContainer {
     options.transparent = true;
     options.hasShadow = true;
     options.x = displayWidth - NotificationContainer.CONTAINER_WIDTH;
-    options.y = 0;
+    if (process.platform === "darwin") options.y = 0;
+    else options.y = displayHeight - options.height;
     options.webPreferences = {
       nodeIntegration: true,
       contextIsolation: false,
@@ -124,6 +125,15 @@ class NotificationContainer {
       } else {
         this.window &&
           this.window.setIgnoreMouseEvents(true, { forward: true });
+      }
+      if (process.platform !== "darwin") {
+        const display = require("electron").screen.getPrimaryDisplay();
+        const displayHeight = display.workArea.y + display.workAreaSize.height;
+        this.window &&
+          this.window.setPosition(
+            this.window.getPosition()[0],
+            displayHeight - height
+          );
       }
       this.window && this.window.setSize(this.window.getSize()[0], height);
     });
