@@ -232,7 +232,8 @@ const containerHtml =
         overflow: hidden;
       }
       .notification-container{
-        padding:12px;
+        padding: 12px;
+        padding-bottom: 0px;
       }
     </style>
   </head>

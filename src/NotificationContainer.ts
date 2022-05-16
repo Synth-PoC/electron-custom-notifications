@@ -77,7 +77,7 @@ class NotificationContainer {
     options.transparent = true;
     options.hasShadow = true;
     options.x = displayWidth - NotificationContainer.CONTAINER_WIDTH;
-    if (process.platform === "darwin") options.y = 0;
+    if (process.platform !== "darwin") options.y = 0;
     else options.y = displayHeight - options.height;
     options.webPreferences = {
       nodeIntegration: true,
@@ -126,7 +126,7 @@ class NotificationContainer {
         this.window &&
           this.window.setIgnoreMouseEvents(true, { forward: true });
       }
-      if (process.platform !== "darwin") {
+      if (process.platform === "darwin") {
         const display = require("electron").screen.getPrimaryDisplay();
         const displayHeight = display.workArea.y + display.workAreaSize.height;
         this.window &&
