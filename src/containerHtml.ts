@@ -233,7 +233,6 @@ const containerHtml =
       }
       .notification-container{
         padding: 12px;
-        padding-bottom: 0px;
       }
     </style>
   </head>
